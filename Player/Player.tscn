@@ -624,6 +624,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=6]
 resource_name = "RunDown"
 length = 0.6
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1

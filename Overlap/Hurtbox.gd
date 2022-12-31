@@ -4,6 +4,12 @@ const HitEffect = preload("res://Effects/HitEffect.tscn")
 
 var invincible = false setget set_invincible
 
+onready var timer = $Timer
+onready var collisionShape = $HurtboxCollisionShape2D
+
+signal invincibility_started
+signal invincibility_ended
+
 func set_invincible(value):
 	invincible = value
 	if invincible == true:
@@ -11,10 +17,6 @@ func set_invincible(value):
 	else:
 		emit_signal("invincibility_ended")
 
-onready var timer = $Timer
-
-signal invincibility_started
-signal invincibility_ended
 
 func start_invicibility(duration):
 	self.invincible = true # Using self calls setter
@@ -33,8 +35,8 @@ func _on_Timer_timeout():
 	end_invinicibility()
 
 func _on_Hurtbox_invincibility_started():
-	set_deferred("monitoring", false)
+	collisionShape.set_deferred("disabled", true)
 
 func _on_Hurtbox_invincibility_ended():
-	set_deferred("monitoring", true)
+	collisionShape.disabled = false
 
