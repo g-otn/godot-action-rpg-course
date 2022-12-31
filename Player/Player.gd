@@ -4,6 +4,7 @@ export var ACCELERATION = 400
 export var MAX_SPEED = 90
 export var ROLL_SPEED = 120
 export var FRICTION = 475
+export var INVINCIBILITY_SEC = 2
 
 enum {
 	MOVE,
@@ -87,5 +88,5 @@ func attack_animation_finished():
 
 func _on_Hurtbox_area_entered(area):
 	stats.health -= 1
-	hurtbox.start_invicibility(3)
+	hurtbox.start_invicibility(INVINCIBILITY_SEC)
 	hurtbox.create_hit_effect()
