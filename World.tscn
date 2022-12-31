@@ -583,6 +583,15 @@ position = Vector2( 136, 144 )
 [node name="Bat3" parent="YSort" instance=ExtResource( 7 )]
 position = Vector2( 80, 48 )
 
+[node name="Bat4" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 32, 120 )
+
+[node name="Bat5" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 24, 112 )
+
+[node name="Bat6" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 16, 120 )
+
 [node name="Trees" type="YSort" parent="YSort"]
 
 [node name="Tree" parent="YSort/Trees" instance=ExtResource( 9 )]
