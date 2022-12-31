@@ -61,6 +61,7 @@ func move_state(delta):
 	move()
 	
 	if Input.is_action_just_pressed("roll"):
+		hurtbox.invincible = true
 		state = ROLL
 	
 	if Input.is_action_just_pressed("attack"):
@@ -79,6 +80,7 @@ func move():
 	velocity = move_and_slide(velocity)
 	
 func roll_animation_finished():
+	hurtbox.invincible = false
 	velocity = velocity * 0.8
 	state = MOVE
 	

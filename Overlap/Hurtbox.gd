@@ -6,23 +6,22 @@ var invincible = false setget set_invincible
 
 func set_invincible(value):
 	invincible = value
+	if invincible == true:
+		emit_signal("invincibility_started")
+	else:
+		emit_signal("invincibility_ended")
 
 onready var timer = $Timer
 
-#signal invincibility_started
-#signal invincibility_ended
+signal invincibility_started
+signal invincibility_ended
 
 func start_invicibility(duration):
-	self.invincible = true
+	self.invincible = true # Using self calls setter
 	timer.start(duration)
-	set_deferred("monitoring", false)
-	#emit_signal("invincibility_started")
 
 func end_invinicibility():
-	# Using self calls setter
 	self.invincible = false
-	set_deferred("monitoring", true)
-	#emit_signal("invincibility_ended")
 
 func create_hit_effect():
 	var effect = HitEffect.instance()
@@ -33,9 +32,11 @@ func create_hit_effect():
 func _on_Timer_timeout():
 	end_invinicibility()
 
-#func _on_Hurtbox_invincibility_started():
-#	print("started")
+func _on_Hurtbox_invincibility_started():
+	print("started")
+	set_deferred("monitoring", false)
 
-#func _on_Hurtbox_invincibility_ended():
-#	print("ended")
+func _on_Hurtbox_invincibility_ended():
+	print("ended")
+	set_deferred("monitoring", true)
 
