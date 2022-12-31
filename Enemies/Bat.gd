@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
-export(int) var ACCELLERATION = 100
-export(int) var MAX_SPEED = 50
-export(int) var FRICTION = 100
+export(int) var ACCELLERATION = 80
+export(int) var MAX_SPEED = 40
+export(int) var FRICTION = 90
 export(int) var KNOCKBACK_SPEED = 100
 
 const EnemyDeathEffect = preload("res://Effects/EnemyDeathEffect.tscn")
@@ -21,6 +21,7 @@ var state = CHASE
 onready var sprite = $AnimatedSprite
 onready var stats = $Stats
 onready var playerDetectionZone = $PlayerDetectionZone
+onready var hurtbox = $Hurtbox
 
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION * delta)
@@ -50,9 +51,10 @@ func seek_player():
 
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
-	# Ignores bat chase direction
+	# Ignores bat chase vector
 	velocity = Vector2.ZERO
 	knockback = area.knockback_vector * KNOCKBACK_SPEED
+	hurtbox.create_hit_effect()
 
 func _on_Stats_no_health():
 	queue_free()
