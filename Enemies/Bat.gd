@@ -5,7 +5,7 @@ export(int) var MAX_SPEED = 40
 export(int) var FRICTION = 90
 export(int) var KNOCKBACK_SPEED = 100
 export(int) var SOFT_COLLISION_PUSH = 150
-export(int) var WANDER_TARGET_RANGE = 500
+export(int) var WANDER_TARGET_RANGE = 5
 
 const EnemyDeathEffect = preload("res://Effects/EnemyDeathEffect.tscn")
 
@@ -26,6 +26,7 @@ onready var playerDetectionZone = $PlayerDetectionZone
 onready var hurtbox = $Hurtbox
 onready var softCollision = $SoftCollision
 onready var wanderController = $WanderController
+onready var animationPlayer = $AnimationPlayer
 
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION * delta)
@@ -48,6 +49,7 @@ func _physics_process(delta):
 			
 			if global_position.distance_to(wanderController.target_position) <= WANDER_TARGET_RANGE:
 				pick_state_and_wander()
+
 		CHASE:
 			var player = playerDetectionZone.player
 			if player != null:
@@ -64,7 +66,7 @@ func pick_state_and_wander():
 	wanderController.start_wander_timer(rand_range(1, 3))
 
 func accelerate_towards_point(point, delta):
-	var direction = global_position.direction_to(wanderController.target_position)
+	var direction = global_position.direction_to(point)
 	velocity = velocity.move_toward(direction * MAX_SPEED, ACCELLERATION * delta)
 	sprite.flip_h = velocity.x < 0
 
@@ -82,9 +84,17 @@ func _on_Hurtbox_area_entered(area):
 	velocity = Vector2.ZERO
 	knockback = area.knockback_vector * KNOCKBACK_SPEED
 	hurtbox.create_hit_effect()
+	hurtbox.start_invicibility(0.4)
 
 func _on_Stats_no_health():
 	queue_free()
 	var enemyDeathEffect = EnemyDeathEffect.instance()
 	get_parent().add_child(enemyDeathEffect)
 	enemyDeathEffect.global_position = global_position
+
+
+func _on_Hurtbox_invincibility_started():
+	animationPlayer.play("Start")
+
+func _on_Hurtbox_invincibility_ended():
+	animationPlayer.play("Stop")

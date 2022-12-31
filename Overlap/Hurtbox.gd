@@ -33,10 +33,8 @@ func _on_Timer_timeout():
 	end_invinicibility()
 
 func _on_Hurtbox_invincibility_started():
-	print("started")
 	set_deferred("monitoring", false)
 
 func _on_Hurtbox_invincibility_ended():
-	print("ended")
 	set_deferred("monitoring", true)
 

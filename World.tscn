@@ -602,13 +602,13 @@ position = Vector2( 136, 144 )
 position = Vector2( 80, 48 )
 
 [node name="Bat4" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 32, 120 )
+position = Vector2( 280, 168 )
 
 [node name="Bat5" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 24, 112 )
+position = Vector2( 280, 184 )
 
 [node name="Bat6" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 16, 120 )
+position = Vector2( 280, 176 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
